@@ -17,7 +17,7 @@ export default function Logo(props: Props) {
   const { sx } = props
   return (
     <RouterLink to="/">
-      <Box component="img" src="static/logo.jpg" sx={{height: 75, ...sx }} />
+      <Box component="img" src="static/logo.png" sx={{height: 75, ...sx }} />
     </RouterLink>
   );
 }

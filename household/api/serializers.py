@@ -6,7 +6,7 @@ from organizations.models import (
 )
 from accounts.models import User, UserProfile
 from phonenumber_field.phonenumber import to_python
-from household.models import OrganisationProfile
+from household.models import HouseholdProfile
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -30,7 +30,7 @@ class UserSerializer(serializers.ModelSerializer):
         )
 
 
-class OrganisationUserListSerializer(serializers.ModelSerializer):
+class HouseholdUserListSerializer(serializers.ModelSerializer):
     user = UserSerializer()
 
     class Meta:
@@ -45,7 +45,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
         read_only_fields = ("slug",)
 
 
-class OrganisationOwnerSerializer(serializers.Serializer):
+class HouseholdOwnerSerializer(serializers.Serializer):
     username = serializers.CharField(style={"placeholder": "Username"})
 
     def validate_username(self, username):
@@ -81,7 +81,7 @@ class OrganisationOwnerSerializer(serializers.Serializer):
         }
 
 
-class OrganisationUserSerializer(serializers.Serializer):
+class HouseholdUserSerializer(serializers.Serializer):
     username = serializers.CharField(style={"placeholder": "Username"})
 
     def validate_username(self, username):
@@ -110,7 +110,7 @@ class OrganisationUserSerializer(serializers.Serializer):
         }
 
 
-class OrganisationProfileSerializer(serializers.Serializer):
+class HouseholdProfileSerializer(serializers.Serializer):
     phone_number = serializers.CharField(
         max_length=120, required=False, style={"placeholder": "Phone Number"}
     )
@@ -145,32 +145,26 @@ class OrganisationProfileSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         organisation = self.context.get("organisation")
-        organisation_profile = OrganisationProfile.objects.get(
+        household_profile = HouseholdProfile.objects.get(
             organisation=organisation
         )
         if validated_data.get("email"):
-            organisation_profile.email = validated_data.get("email")
+            household_profile.email = validated_data.get("email")
         if validated_data.get("lat"):
-            organisation_profile.lat = validated_data.get("lat")
+            household_profile.lat = validated_data.get("lat")
         if validated_data.get("long"):
-            organisation_profile.long = validated_data.get("long")
+            household_profile.long = validated_data.get("long")
         if validated_data.get("phone_number"):
-            organisation_profile.phone_number = validated_data.get(
-                "phone_number"
-            )
+            household_profile.phone_number = validated_data.get("phone_number")
         if validated_data.get("logo"):
-            organisation_profile.logo = validated_data.get("logo")
+            household_profile.logo = validated_data.get("logo")
         if validated_data.get("address"):
-            organisation_profile.address = validated_data.get("address")
+            household_profile.address = validated_data.get("address")
         if validated_data.get("description"):
-            organisation_profile.description = validated_data.get(
-                "description"
-            )
+            household_profile.description = validated_data.get("description")
         if validated_data.get("token"):
-            organisation_profile.token = validated_data.get("token")
+            household_profile.token = validated_data.get("token")
         if validated_data.get("instance_id"):
-            organisation_profile.instance_id = validated_data.get(
-                "instance_id"
-            )
-        organisation_profile.save()
-        return organisation_profile
+            household_profile.instance_id = validated_data.get("instance_id")
+        household_profile.save()
+        return household_profile

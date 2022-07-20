@@ -35,7 +35,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 export default function Login() {
   return (
-    <RootStyle title="Login | HFB">
+    <RootStyle title="Login | IOT S&S">
       <Grid container spacing={2}>
         <Grid item xs={12} md={4}>
           <SectionStyle sx={{ display: { xs: 'none', md: 'flex' } }}>

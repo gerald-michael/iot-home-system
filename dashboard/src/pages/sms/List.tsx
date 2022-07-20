@@ -118,7 +118,7 @@ export default function SmsList() {
     const { data } = useSWR(`${HOST_URL}sms/?limit=${rowsPerPage}&offset=${page * rowsPerPage}&search=${search}&ordering=${(order === 'desc' ? "-" : "") + orderBy}`, fetcher)
     return (
         <Can permissions={"can_view_sms"}>
-            <Page title="Sms List | HFB">
+            <Page title="Sms List | IOT S&S">
                 <Container>
                     <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
                         <Typography variant="h4" gutterBottom>

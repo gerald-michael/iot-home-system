@@ -80,7 +80,7 @@ export default function Users() {
   };
   const { data } = useSWR(`${HOST_URL}accounts/?limit=${rowsPerPage}&offset=${page * rowsPerPage}&search=${search}&ordering=${(order === 'desc' ? "-" : "") + orderBy}`, fetcher)
   return (
-    <Page title="Users | HFB">
+    <Page title="Users | IOT S&S">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>

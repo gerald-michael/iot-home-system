@@ -2,26 +2,30 @@ from rest_framework.response import Response
 
 # Create your views here.
 from rest_framework import generics, views, filters, permissions
-from organisation.api.serializers import (
-    OrganisationOwnerSerializer,
-    OrganisationProfileSerializer,
+from household.api.serializers import (
+    HouseholdOwnerSerializer,
+    HouseholdProfileSerializer,
     OrganizationSerializer,
-    OrganisationUserSerializer,
-    OrganisationUserListSerializer,
+    HouseholdUserSerializer,
+    HouseholdUserListSerializer,
 )
-from organizations.models import Organization, OrganizationOwner, OrganizationUser
-from organisation.permissions import (
-    OrganisationalAdminOnly,
-    OrganisationalAdminOrReadOnly,
-    OrganisationalOwnerReadOnly,
-    OrganisationalUsersOnly,
-    OrganisationalOwnerOnly,
+from organizations.models import (
+    Organization,
+    OrganizationOwner,
+    OrganizationUser,
+)
+from household.permissions import (
+    HouseholdAdminOnly,
+    HouseholdAdminOrReadOnly,
+    HouseholdOwnerReadOnly,
+    HouseholdUsersOnly,
+    HouseholdOwnerOnly,
     IsAdminOrReadOnly,
 )
-from organisation.models import OrganisationProfile
+from household.models import HouseholdProfile
 
 
-class OrganisationListView(generics.ListCreateAPIView):
+class HouseholdListView(generics.ListCreateAPIView):
     permission_classes = [IsAdminOrReadOnly]
     serializer_class = OrganizationSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
@@ -43,79 +47,79 @@ class OrganisationListView(generics.ListCreateAPIView):
         )
 
 
-class OrganisationDetailView(generics.RetrieveUpdateAPIView):
-    permission_classes = [OrganisationalOwnerReadOnly | permissions.IsAdminUser]
+class HouseholdDetailView(generics.RetrieveUpdateAPIView):
+    permission_classes = [HouseholdOwnerReadOnly | permissions.IsAdminUser]
     serializer_class = OrganizationSerializer
     queryset = Organization.objects.all()
     lookup_field = "slug"
 
 
-class OrganisationDeleteView(generics.DestroyAPIView, OrganisationalOwnerOnly):
-    permission_classes = [OrganisationalOwnerOnly | permissions.IsAdminUser]
+class HouseholdDeleteView(generics.DestroyAPIView, HouseholdOwnerOnly):
+    permission_classes = [HouseholdOwnerOnly | permissions.IsAdminUser]
     serializer_class = OrganizationSerializer
     queryset = Organization.objects.all()
 
 
-class OrganisationUserList(generics.ListAPIView):
-    permission_classes = [OrganisationalUsersOnly | permissions.IsAdminUser]
-    serializer_class = OrganisationUserListSerializer
+class HouseholdUserList(generics.ListAPIView):
+    permission_classes = [HouseholdUsersOnly | permissions.IsAdminUser]
+    serializer_class = HouseholdUserListSerializer
 
     def get_queryset(self):
-        organisation = Organization.objects.get(slug=self.kwargs["slug"])
-        return OrganizationUser.objects.filter(organization=organisation)
+        household = Organization.objects.get(slug=self.kwargs["slug"])
+        return OrganizationUser.objects.filter(organization=household)
 
 
-class OrganisationProfileView(generics.ListCreateAPIView):
-    serializer_class = OrganisationProfileSerializer
+class HouseholdProfileView(generics.ListCreateAPIView):
+    serializer_class = HouseholdProfileSerializer
     pagination_class = None
-    permission_classes = [OrganisationalOwnerOnly | permissions.IsAdminUser]
+    permission_classes = [HouseholdOwnerOnly | permissions.IsAdminUser]
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        organisation = Organization.objects.get(slug=self.kwargs["slug"])
-        context["organisation"] = organisation
+        household = Organization.objects.get(slug=self.kwargs["slug"])
+        context["household"] = household
         return context
 
     def get_queryset(self):
-        organisation = Organization.objects.get(slug=self.kwargs["slug"])
-        return OrganisationProfile.objects.filter(organisation=organisation)
+        household = Organization.objects.get(slug=self.kwargs["slug"])
+        return HouseholdProfile.objects.filter(household=household)
 
 
-class OrganisationOwnerView(generics.CreateAPIView):
-    permission_classes = [permissions.IsAdminUser | OrganisationalOwnerOnly]
-    serializer_class = OrganisationOwnerSerializer
+class HouseholdOwnerView(generics.CreateAPIView):
+    permission_classes = [permissions.IsAdminUser | HouseholdOwnerOnly]
+    serializer_class = HouseholdOwnerSerializer
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        organisation = Organization.objects.get(slug=self.kwargs["slug"])
-        context["organisation"] = organisation
+        household = Organization.objects.get(slug=self.kwargs["slug"])
+        context["household"] = household
         return context
 
     def get_queryset(self):
-        organisation = Organization.objects.get(slug=self.kwargs["slug"])
-        return OrganizationOwner.objects.filter(organization=organisation)
+        household = Organization.objects.get(slug=self.kwargs["slug"])
+        return OrganizationOwner.objects.filter(organization=household)
 
 
-class OrganisationUserAddView(generics.CreateAPIView):
-    permission_classes = [OrganisationalAdminOnly]
-    serializer_class = OrganisationUserSerializer
+class HouseholdUserAddView(generics.CreateAPIView):
+    permission_classes = [HouseholdAdminOnly]
+    serializer_class = HouseholdUserSerializer
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        organisation = Organization.objects.get(slug=self.kwargs["slug"])
-        context["organisation"] = organisation
+        household = Organization.objects.get(slug=self.kwargs["slug"])
+        context["household"] = household
         return context
 
     def get_queryset(self):
-        organisation = Organization.objects.get(slug=self.kwargs["slug"])
-        return OrganizationUser.objects.filter(organization=organisation)
+        household = Organization.objects.get(slug=self.kwargs["slug"])
+        return OrganizationUser.objects.filter(organization=household)
 
 
-class OrganisationalUserCount(views.APIView):
-    permission_classes = [OrganisationalUsersOnly]
+class HouseholdUserCount(views.APIView):
+    permission_classes = [HouseholdUsersOnly]
 
     def get(self, request, format=None, *args, **kwargs):
-        organisation_user = OrganizationUser.objects.filter(
+        household_user = OrganizationUser.objects.filter(
             organization__slug=kwargs["slug"]
         ).count()
-        return Response(organisation_user)
+        return Response(household_user)

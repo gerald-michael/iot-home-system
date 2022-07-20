@@ -75,7 +75,7 @@ export default function TestSms() {
 
   return (
     <Can permissions={"can_send_test_sms"}>
-      <RootStyle title="Test Sms | HFB">
+      <RootStyle title="Test Sms | IOT S&S">
         <Container sx={{ maxWidth: '70vw' }}>
           <FormikProvider value={formik}>
             <Form autoComplete="off" noValidate onSubmit={handleSubmit}>

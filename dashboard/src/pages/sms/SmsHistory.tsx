@@ -20,7 +20,7 @@ export default function SmsHistory() {
     const { data } = useSWR(`${HOST_URL}sms/${smsid}/`, fetcher)
     return (
         <Can permissions={"view_historicalsmsout"}>
-            <RootStyle title="Test Sms | HFB">
+            <RootStyle title="Test Sms | IOT S&S">
                 <Container>
                     <Grid container spacing={2}>
                         {data && (

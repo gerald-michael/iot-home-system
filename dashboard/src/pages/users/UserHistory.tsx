@@ -22,7 +22,7 @@ export default function UserHistory() {
     const { data } = useSWR(`${HOST_URL}accounts/${userid}/`, fetcher)
     return (
         <Can permissions={"view_historicaluser"}>
-            <RootStyle title="Test Sms | HFB">
+            <RootStyle title="Test Sms | IOT S&S">
                 <Container>
                     <Grid container spacing={2}>
                         {data && (

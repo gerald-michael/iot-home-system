@@ -133,7 +133,7 @@ export default function UserEdit() {
     );
 
     return (
-        <Page title="User Edit | HFB">
+        <Page title="User Edit | IOT S&S">
             <Container>
                 <Card sx={{ padding: 2, marginBottom: 2, marginX: "10%" }}>
                     <Typography>Add User to Groups</Typography>
