@@ -22,7 +22,6 @@ class HistoricalRecordField(serializers.ListField):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
-    history = HistoricalRecordField(read_only=True)
 
     class Meta:
         model = UserProfile
@@ -31,7 +30,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "firstname",
             "lastname",
             "phone_number",
-            "history",
         )
 
 
@@ -73,7 +71,6 @@ class UserProfileUpdateSerializer(serializers.Serializer):
 
 class UserSerializer(serializers.ModelSerializer):
     user_profile = UserProfileSerializer()
-    history = HistoricalRecordField(read_only=True)
 
     class Meta:
         model = User
@@ -85,7 +82,6 @@ class UserSerializer(serializers.ModelSerializer):
             "date_joined",
             "last_login",
             "is_staff",
-            "history",
         ]
 
 

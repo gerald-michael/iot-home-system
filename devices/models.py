@@ -25,6 +25,8 @@ class Device(HouseholdAwareModelMixin, TimeStampedEditableModel):
         GAS = "GAS", "Gas"
         PROXIMITY = "PROXIMITY", "Proximity"
         TOUCH = "TOUCH", "Touch"
+        DIGITAL = "DIGITAL", "Digital"
+
 
     type = models.CharField(
         _("Device Type"), max_length=10, choices=Choices.choices

@@ -5,39 +5,55 @@ const sidebarConfig = [
   {
     title: 'dashboard',
     path: '/',
-    permission: 'can_view_sms',
+    // permission: 'can_view_sms',
     icon: getIcon('ci:dashboard')
   },
   {
-    title: 'sms',
-    permission: ['can_view_sms', 'can_send_test_sms'],
-    icon: getIcon('fa-solid:sms'),
+    title: 'sensors',
+    // permission: ['can_view_sms', 'can_send_test_sms'],
+    icon: getIcon('eos-icons:iot'),
     children: [
       {
-        title: 'report',
-        permission: 'can_view_sms',
-        path: 'sms/report/',
+        title: 'gas sensor',
+        // permission: 'can_view_sms',
+        path: 'device/gas/',
       },
       {
-        title: 'Test',
-        permission: 'can_send_test_sms',
-        path: 'sms/test/',
+        title: 'proximity sensor',
+        // permission: 'can_send_test_sms',
+        path: 'device/proximity/',
+      },
+      {
+        title: 'touch sensor',
+        // permission: 'can_view_sms',
+        path: 'device/touch/',
+      },
+      {
+        title: 'digital camera',
+        // permission: 'can_send_test_sms',
+        path: 'device/test/',
       },
     ]
   },
   {
+    title: 'statistics',
+    path: '/statistics',
+    // permission: 'can_view_sms',
+    icon: getIcon('icomoon-free:stats-dots')
+  },
+  {
     title: 'users',
-    permission: ['view_user', 'add_user'],
+    // permission: ['view_user', 'add_user'],
     icon: getIcon('fa-solid:users'),
     children: [
       {
         title: 'All User',
-        permission: 'view_user',
+        // permission: 'view_user',
         path: 'users/all/',
       },
       {
         title: 'register',
-        permission: 'add_user',
+        // permission: 'add_user',
         path: 'users/register/',
       },
     ]

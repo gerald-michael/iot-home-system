@@ -6,8 +6,6 @@ import { BaseOptionChartStyle } from './components/charts/BaseOptionChart';
 import { useContext, useEffect } from 'react';
 import Profile from './pages/profile/Profile';
 import Users from './pages/users/Users';
-import SmsList from './pages/sms/List';
-import SmsTest from './pages/sms/Test';
 import DashboardLayout from './layouts/dashboard';
 import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 import Login from './pages/auth/login/Login';
@@ -21,7 +19,6 @@ import {
 } from "react-router-dom";
 import RegisterForm from './pages/users/RegisterForm';
 import UserEdit from './pages/users/UserEdit';
-import SmsHistory from './pages/sms/SmsHistory';
 import UserHistory from './pages/users/UserHistory';
 // ----------------------------------------------------------------------
 
@@ -61,11 +58,6 @@ export default function App() {
                         <Route path="edit/" element={<UserEdit />} />
                         <Route path="history/" element={<UserHistory />} />
                       </Route>
-                    </Route>
-                    <Route path="sms">
-                      <Route path="report/" element={<SmsList />} />
-                      <Route path="test/" element={<SmsTest />} />
-                      <Route path="report/:smsid/" element={<SmsHistory />} />
                     </Route>
                     <Route path="*" element={<Navigate to="/404" replace />} />
                   </Route>

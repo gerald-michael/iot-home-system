@@ -250,6 +250,16 @@ AUTH_USER_MODEL = "accounts.User"
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "/"
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
+REST_AUTH_SERIALIZERS = {
+    'LOGIN_SERIALIZER': 'accounts.api.serializers.CustomLoginSerializer',
+    'USER_DETAILS_SERIALIZER': 'accounts.api.serializers.UserSerializer',
+    'TOKEN_SERIALIZER': 'accounts.api.serializers.TokenSerializer'
+}
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'accounts.api.serializers.CustomRegisterSerializer',
+}
+
+
 # Django Organizations
 ORGS_SLUGFIELD = "django_extensions.db.fields.AutoSlugField"
 

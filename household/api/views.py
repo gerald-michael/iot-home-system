@@ -4,15 +4,14 @@ from rest_framework.response import Response
 from rest_framework import generics, views, filters, permissions
 from household.api.serializers import (
     HouseholdOwnerSerializer,
-    HouseholdProfileSerializer,
-    OrganizationSerializer,
+    HouseholdSerializer,
     HouseholdUserSerializer,
     HouseholdUserListSerializer,
 )
-from organizations.models import (
-    Organization,
-    OrganizationOwner,
-    OrganizationUser,
+from household.models import (
+    Household,
+    HouseholdOwner,
+    HouseholdUser,
 )
 from household.permissions import (
     HouseholdAdminOnly,
@@ -22,12 +21,11 @@ from household.permissions import (
     HouseholdOwnerOnly,
     IsAdminOrReadOnly,
 )
-from household.models import HouseholdProfile
 
 
 class HouseholdListView(generics.ListCreateAPIView):
-    permission_classes = [IsAdminOrReadOnly]
-    serializer_class = OrganizationSerializer
+    # permission_classes = [IsAdminOrReadOnly]
+    serializer_class = HouseholdSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = [
         "name",
@@ -41,23 +39,23 @@ class HouseholdListView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         if self.request.user.is_staff:
-            return Organization.objects.filter(is_active=True)
-        return Organization.objects.filter(
+            return Household.objects.filter(is_active=True)
+        return Household.objects.filter(
             organization_users__user_id=self.request.user, is_active=True
         )
 
 
 class HouseholdDetailView(generics.RetrieveUpdateAPIView):
     permission_classes = [HouseholdOwnerReadOnly | permissions.IsAdminUser]
-    serializer_class = OrganizationSerializer
-    queryset = Organization.objects.all()
+    serializer_class = HouseholdSerializer
+    queryset = Household.objects.all()
     lookup_field = "slug"
 
 
 class HouseholdDeleteView(generics.DestroyAPIView, HouseholdOwnerOnly):
     permission_classes = [HouseholdOwnerOnly | permissions.IsAdminUser]
-    serializer_class = OrganizationSerializer
-    queryset = Organization.objects.all()
+    serializer_class = HouseholdSerializer
+    queryset = Household.objects.all()
 
 
 class HouseholdUserList(generics.ListAPIView):
@@ -65,24 +63,8 @@ class HouseholdUserList(generics.ListAPIView):
     serializer_class = HouseholdUserListSerializer
 
     def get_queryset(self):
-        household = Organization.objects.get(slug=self.kwargs["slug"])
-        return OrganizationUser.objects.filter(organization=household)
-
-
-class HouseholdProfileView(generics.ListCreateAPIView):
-    serializer_class = HouseholdProfileSerializer
-    pagination_class = None
-    permission_classes = [HouseholdOwnerOnly | permissions.IsAdminUser]
-
-    def get_serializer_context(self):
-        context = super().get_serializer_context()
-        household = Organization.objects.get(slug=self.kwargs["slug"])
-        context["household"] = household
-        return context
-
-    def get_queryset(self):
-        household = Organization.objects.get(slug=self.kwargs["slug"])
-        return HouseholdProfile.objects.filter(household=household)
+        household = Household.objects.get(slug=self.kwargs["slug"])
+        return HouseholdUser.objects.filter(organization=household)
 
 
 class HouseholdOwnerView(generics.CreateAPIView):
@@ -91,13 +73,13 @@ class HouseholdOwnerView(generics.CreateAPIView):
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        household = Organization.objects.get(slug=self.kwargs["slug"])
+        household = Household.objects.get(slug=self.kwargs["slug"])
         context["household"] = household
         return context
 
     def get_queryset(self):
-        household = Organization.objects.get(slug=self.kwargs["slug"])
-        return OrganizationOwner.objects.filter(organization=household)
+        household = Household.objects.get(slug=self.kwargs["slug"])
+        return HouseholdOwner.objects.filter(organization=household)
 
 
 class HouseholdUserAddView(generics.CreateAPIView):
@@ -106,20 +88,20 @@ class HouseholdUserAddView(generics.CreateAPIView):
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        household = Organization.objects.get(slug=self.kwargs["slug"])
+        household = Household.objects.get(slug=self.kwargs["slug"])
         context["household"] = household
         return context
 
     def get_queryset(self):
-        household = Organization.objects.get(slug=self.kwargs["slug"])
-        return OrganizationUser.objects.filter(organization=household)
+        household = Household.objects.get(slug=self.kwargs["slug"])
+        return HouseholdUser.objects.filter(organization=household)
 
 
 class HouseholdUserCount(views.APIView):
     permission_classes = [HouseholdUsersOnly]
 
     def get(self, request, format=None, *args, **kwargs):
-        household_user = OrganizationUser.objects.filter(
+        household_user = HouseholdUser.objects.filter(
             organization__slug=kwargs["slug"]
         ).count()
         return Response(household_user)
