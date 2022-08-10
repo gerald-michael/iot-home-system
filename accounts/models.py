@@ -55,6 +55,10 @@ class UserManager(BaseUserManager):
         )
         user.set_password(password)
         user.save(using=self._db)
+        PasswordHistory.objects.create(
+            user=user,
+            password=user.password,
+        )
         return user
 
     def create_user(self, email, username, password, is_staff):

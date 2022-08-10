@@ -209,10 +209,6 @@ class CustomRegisterSerializer(serializers.Serializer):
         user = User.objects.create_user(
             email=email, username=username, password=password, is_staff=False
         )
-        PasswordHistory.objects.create(
-            user=user,
-            password=user.password,
-        )
         return user
 
 
