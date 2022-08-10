@@ -60,7 +60,7 @@ const config = {
 }
 // ----------------------------------------------------------------------
 const fetcher = (url: string) => fetch(url, config).then(res => res.json())
-export default function Register() {
+export default function HouseholdList() {
     const [page, setPage] = useState(0);
     const [order, setOrder] = useState('asc');
     const [orderBy, setOrderBy] = useState('date_updated');
@@ -87,7 +87,7 @@ export default function Register() {
     };
     const [limit, setLimit] = useState(5)
     const [ordering, setOrdering] = useState("-date_created")
-    const { data } = useSWR(`${HOST_URL}organisation/?limit=${limit}&offset=${page * rowsPerPage}&search=${search}&ordering=${ordering}`, fetcher)
+    const { data } = useSWR(`${HOST_URL}household/?limit=${limit}&offset=${page * rowsPerPage}&search=${search}&ordering=${ordering}`, fetcher)
     let navigate = useNavigate();
     return (
         <RootStyle title="Household | HSSIOT">

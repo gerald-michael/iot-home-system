@@ -9,7 +9,7 @@ const sidebarConfig = [
     icon: getIcon('ci:dashboard')
   },
   {
-    title: 'sensors',
+    title: 'device',
     // permission: ['can_view_sms', 'can_send_test_sms'],
     icon: getIcon('eos-icons:iot'),
     children: [
@@ -27,11 +27,6 @@ const sidebarConfig = [
         title: 'touch sensor',
         // permission: 'can_view_sms',
         path: 'device/touch/',
-      },
-      {
-        title: 'digital camera',
-        // permission: 'can_send_test_sms',
-        path: 'device/test/',
       },
     ]
   },

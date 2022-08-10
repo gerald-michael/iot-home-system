@@ -18,12 +18,16 @@ import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 
-export default function LoginForm() {
+export default function CreateForm() {
   const HouseholdSchema = Yup.object().shape({
-    household_name: Yup.string().required('Household is required'),
+    household_name: Yup.string().required('Household name is required'),
     active: Yup.boolean().required('Active is required'),
     lat: Yup.number().required("Latitude is required"),
-    long: Yup.number().required("Longitude is required")
+    long: Yup.number().required("Longitude is required"),
+    address: Yup.string().required("Address is required"),
+    description: Yup.string().required("Description is required"),
+    email: Yup.string().email().required("Email is required"),
+    phonenumber: Yup.string().phone().required("Phone Number is required")
   });
   const { household, createHousehold, clear } = useContext(HouseholdContext)
   const formik = useFormik({
@@ -39,7 +43,7 @@ export default function LoginForm() {
     },
     validationSchema: HouseholdSchema,
     onSubmit: (values) => {
-      createHousehold(values.household_name, values.active)
+      createHousehold(values.household_name, values.email, values.phonenumber, values.address, values.lat, values.long, values.description, values.active)
     }
   });
   const navigate = useNavigate()
@@ -50,7 +54,7 @@ export default function LoginForm() {
       enqueueSnackbar(household.success, {
         variant: 'success',
       })
-      navigate("/home/")
+      navigate("/household/")
       clear()
     } else if (household.error) {
       enqueueSnackbar(household.error, {
@@ -88,9 +92,9 @@ export default function LoginForm() {
               fullWidth
               type="text"
               label="Household Address"
-              {...getFieldProps('household_name')}
-              error={Boolean(touched.household_name && errors.household_name)}
-              helperText={touched.household_name && errors.household_name}
+              {...getFieldProps('address')}
+              error={Boolean(touched.address && errors.address)}
+              helperText={touched.address && errors.address}
             />
           </Stack>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
@@ -121,26 +125,26 @@ export default function LoginForm() {
               fullWidth
               type="email"
               label="Household Email"
-              {...getFieldProps('household_name')}
-              error={Boolean(touched.household_name && errors.household_name)}
-              helperText={touched.household_name && errors.household_name}
+              {...getFieldProps('email')}
+              error={Boolean(touched.email && errors.email)}
+              helperText={touched.email && errors.email}
             />
             <TextField
               fullWidth
               type="text"
               label="Household Phone Number"
-              {...getFieldProps('household_name')}
-              error={Boolean(touched.household_name && errors.household_name)}
-              helperText={touched.household_name && errors.household_name}
+              {...getFieldProps('phonenumber')}
+              error={Boolean(touched.phonenumber && errors.phonenumber)}
+              helperText={touched.phonenumber && errors.phonenumber}
             />
           </Stack>
           <TextField
             fullWidth
             type="text"
             label="Household Description"
-            {...getFieldProps('household_name')}
-            error={Boolean(touched.household_name && errors.household_name)}
-            helperText={touched.household_name && errors.household_name}
+            {...getFieldProps('description')}
+            error={Boolean(touched.description && errors.description)}
+            helperText={touched.description && errors.description}
           />
 
           <FormControlLabel

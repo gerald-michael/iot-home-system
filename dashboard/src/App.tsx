@@ -21,8 +21,11 @@ import RegisterForm from './pages/users/RegisterForm';
 import UserEdit from './pages/users/UserEdit';
 import UserHistory from './pages/users/UserHistory';
 import HomeCreateLayout from './layouts/HomeCreateLayout';
-import Homes from './pages/household/list/Homes';
+import Homes from './pages/household/list/List';
 import HomeCreate from './pages/household/create/Create';
+import GasSensor from './pages/devices/GasSensor';
+import TouchSensor from './pages/devices/TouchSensor';
+import ProximitySensor from './pages/devices/ProximitySensor';
 
 // ----------------------------------------------------------------------
 
@@ -43,7 +46,7 @@ export default function App() {
         <Routes>
           {auth.token ? (
             <>
-              <Route index element={<Navigate to="/home" replace />} />
+              <Route index element={<Navigate to="/household" replace />} />
               <Route path="profile/" element={<Profile />} />
               <Route path="/404" element={<NotFound />} />
               {auth.password_change_required ?
@@ -52,10 +55,10 @@ export default function App() {
                 </>
                 :
                 <>
-                  <Route path="home/" element={<HomeCreateLayout />}>
+                  <Route path="/household" element={<HomeCreateLayout />}>
                     <Route path='' element={<Homes />} />
                     <Route path='create/' element={<HomeCreate />} />
-                    <Route path="dashboard/" element={<DashboardLayout />}>
+                    <Route path=":orgslug" element={<DashboardLayout />}>
                       <Route index element={<DashboardApp />} />
                       <Route path="profile/" element={<Profile />} />
                       <Route path="users">
@@ -65,6 +68,11 @@ export default function App() {
                           <Route path="edit/" element={<UserEdit />} />
                           <Route path="history/" element={<UserHistory />} />
                         </Route>
+                      </Route>
+                      <Route path="device">
+                        <Route path="proximity/" element={<ProximitySensor />} />
+                        <Route path="touch/" element={<TouchSensor />} />
+                        <Route path="gas/" element={<GasSensor />} />
                       </Route>
                       <Route path="*" element={<Navigate to="/404" replace />} />
                     </Route>

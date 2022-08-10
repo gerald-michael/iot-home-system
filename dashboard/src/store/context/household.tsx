@@ -40,7 +40,7 @@ const HouseholdContextProvider = (props: Props): JSX.Element => {
             success: null,
         }
     }
-    const createHousehold = (name: string, is_active: boolean) => {
+    const createHousehold = (name: string, email: string, phone_number: string, address: string, lat: number, long: number, description: string, is_active: boolean) => {
         householdDispatch(householdStart())
         const token = localStorage.getItem('token')?.toString()
         if (token) {
@@ -51,7 +51,7 @@ const HouseholdContextProvider = (props: Props): JSX.Element => {
                     'Authorization': 'Token ' + token
                 }
             }
-            axios.post(`${HOST_URL}household/`, { name, is_active }, config).then((_) => {
+            axios.post(`${HOST_URL}household/`, { name, email, lat, long, address, phone_number, description, is_active, }, config).then((_) => {
                 householdDispatch(householdSuccess("Created Successfully"))
             }).catch((err) => {
                 console.log(err.response)
@@ -66,7 +66,7 @@ const HouseholdContextProvider = (props: Props): JSX.Element => {
         householdDispatch(householdClear())
     }
     return (
-        <HouseholdContext.Provider value={{ household, createHousehold,  clear }}>
+        <HouseholdContext.Provider value={{ household, createHousehold, clear }}>
             {props.children}
         </HouseholdContext.Provider>
     );
