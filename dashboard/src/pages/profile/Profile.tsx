@@ -77,7 +77,7 @@ export default function Profile() {
     });
     const { errors, touched, handleSubmit, getFieldProps } = formik;
     return (
-        <Page title="Profile | IOT S&S">
+        <Page title="Profile | HSSIOT">
             <Container>
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
                     <Typography variant="h4" gutterBottom>

@@ -14,7 +14,7 @@ import { Can } from '../store/context/permissions';
 
 export default function DashboardApp() {
   return (
-    <Page title="Dashboard | IOT S&S">
+    <Page title="Dashboard | HSSIOT">
       <Container maxWidth="xl">
         <Box sx={{ pb: 5 }}>
           <Typography variant="h4">Hi, Welcome back</Typography>

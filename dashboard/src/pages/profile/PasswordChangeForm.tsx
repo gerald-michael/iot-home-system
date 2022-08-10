@@ -65,7 +65,7 @@ export default function CreateForm(props: Props) {
     }, [auth])
     return (
         <DialogContent>
-            <Page title="Change Password | SPREAD">
+            <Page title="Change Password | HSSIOT">
                 <Paper sx={{ maxWidth: '60vw', padding: 2, marginX: "auto", maxHeight: "95vh", overflow: "auto" }}>
                     <Typography variant='h5' sx={{ marginBottom: 2 }}>Change Password</Typography>
                     <FormikProvider value={formik}>

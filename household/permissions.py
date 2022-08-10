@@ -1,72 +1,72 @@
-from organizations.models import Organization
+from household.models import Household
 from rest_framework import permissions
 
 
 class HouseholdUsersOnly(permissions.BasePermission):
-    message = "Access for only organizational users"
+    message = "Access for only householdal users"
 
     def has_permission(self, request, view):
-        organization = Organization.objects.get(
+        household = Household.objects.get(
             slug=request.resolver_match.kwargs["slug"]
         )
-        if organization.is_member(request.user):
+        if household.is_member(request.user):
             return True
 
 
 class HouseholdAdminOnly(permissions.BasePermission):
-    message = "Access for only organizational admins"
+    message = "Access for only householdal admins"
 
     def has_permission(self, request, view):
-        organization = Organization.objects.get(
+        household = Household.objects.get(
             slug=request.resolver_match.kwargs["slug"]
         )
-        if organization.is_admin(request.user):
+        if household.is_admin(request.user):
             return True
 
 
 class HouseholdOwnerOnly(permissions.BasePermission):
-    message = "Access for only organizational owner"
+    message = "Access for only householdal owner"
 
     def has_permission(self, request, view):
-        organization = Organization.objects.get(
+        household = Household.objects.get(
             slug=request.resolver_match.kwargs["slug"]
         )
-        if organization.is_owner(request.user):
+        if household.is_owner(request.user):
             return True
 
 
 class HouseholdAdminOrReadOnly(permissions.BasePermission):
-    message = "Access for only organizational owner"
+    message = "Access for only householdal owner"
 
     def has_permission(self, request, view):
-        organization = Organization.objects.get(
+        household = Household.objects.get(
             slug=request.resolver_match.kwargs["slug"]
         )
         if request.method in permissions.SAFE_METHODS and (
-            organization.is_member(request.user)
-            | organization.is_admin(request.user)
-            | organization.is_owner(request.user)
+            household.is_member(request.user)
+            | household.is_admin(request.user)
+            | household.is_owner(request.user)
         ):
             return True
-        if organization.is_owner(request.user) | organization.is_admin(
+        if household.is_owner(request.user) | household.is_admin(
             request.user
         ):
             return True
 
 
 class HouseholdOwnerReadOnly(permissions.BasePermission):
-    message = "Access for only organizational owner"
+    message = "Access for only household owner"
 
     def has_permission(self, request, view):
-        organization = Organization.objects.get(
+        household = Household.objects.get(
             slug=request.resolver_match.kwargs["slug"]
         )
         if request.method in permissions.SAFE_METHODS and (
-            organization.is_member(request.user)
-            | organization.is_admin(request.user)
+            household.is_member(request.user)
+            | household.is_admin(request.user)
         ):
             return True
-        if organization.is_owner(request.user):
+        if household.is_owner(request.user):
             return True
 
 

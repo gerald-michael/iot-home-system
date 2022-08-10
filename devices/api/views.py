@@ -1,52 +1,30 @@
-from rest_framework import viewsets, filters, response, views, generics
-from devices.models import Category, Device, DeviceReading
+from rest_framework import viewsets, filters, permissions
+from devices.models import DeviceReading
 from devices.api.serializers import (
-    CategorySerializer,
     DeviceReadingPolymorphicSerializer,
-    DeviceSerializer,
 )
-from organizations.models import Organization
+from household.models import Household
 from household.permissions import HouseholdUsersOnly
 
 # Create your views here.
-class CategoryViewset(viewsets.ModelViewSet):
-    pagination_class = None
-    permission_classes = [HouseholdUsersOnly]
-    serializer_class = CategorySerializer
-    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
-    search_fields = [
-        "name",
-    ]
-    ordering = ["name"]
-    ordering_fields = ["name"]
-
-    def get_serializer_context(self):
-        context = super().get_serializer_context()
-        organisation = Organization.objects.get(slug=self.kwargs["slug"])
-        context["organisation"] = organisation
-        return context
-
-    def get_queryset(self):
-        organisation = Organization.objects.get(slug=self.kwargs["slug"])
-        return Category.objects.filter(organisation=organisation)
 
 
-class DeviceViewset(viewsets.ModelViewSet):
-    permission_classes = [HouseholdUsersOnly]
+class DeviceReadingViewset(viewsets.ModelViewSet):
+    permission_classes = [HouseholdUsersOnly | permissions.IsAdminUser]
     serializer_class = DeviceReadingPolymorphicSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
-    search_fields = ["title", "description", "category__name"]
+    search_fields = []
     ordering = ["date_created"]
     ordering_fields = [
-        "sent",
+        "date_created",
     ]
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        organisation = Organization.objects.get(slug=self.kwargs["slug"])
-        context["organisation"] = organisation
+        household = Household.objects.get(slug=self.kwargs["slug"])
+        context["household"] = household
         return context
 
     def get_queryset(self):
-        organisation = Organization.objects.get(slug=self.kwargs["slug"])
-        return Message.objects.filter(organisation=organisation)
+        household = Household.objects.get(slug=self.kwargs["slug"])
+        return DeviceReading.objects.filter(household=household)

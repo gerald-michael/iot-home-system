@@ -46,20 +46,20 @@ class HouseholdListView(generics.ListCreateAPIView):
 
 
 class HouseholdDetailView(generics.RetrieveUpdateAPIView):
-    permission_classes = [HouseholdOwnerReadOnly | permissions.IsAdminUser]
+    # permission_classes = [HouseholdOwnerReadOnly | permissions.IsAdminUser]
     serializer_class = HouseholdSerializer
     queryset = Household.objects.all()
     lookup_field = "slug"
 
 
 class HouseholdDeleteView(generics.DestroyAPIView, HouseholdOwnerOnly):
-    permission_classes = [HouseholdOwnerOnly | permissions.IsAdminUser]
+    # permission_classes = [HouseholdOwnerOnly | permissions.IsAdminUser]
     serializer_class = HouseholdSerializer
     queryset = Household.objects.all()
 
 
 class HouseholdUserList(generics.ListAPIView):
-    permission_classes = [HouseholdUsersOnly | permissions.IsAdminUser]
+    # permission_classes = [HouseholdUsersOnly | permissions.IsAdminUser]
     serializer_class = HouseholdUserListSerializer
 
     def get_queryset(self):
@@ -68,7 +68,7 @@ class HouseholdUserList(generics.ListAPIView):
 
 
 class HouseholdOwnerView(generics.CreateAPIView):
-    permission_classes = [permissions.IsAdminUser | HouseholdOwnerOnly]
+    # permission_classes = [permissions.IsAdminUser | HouseholdOwnerOnly]
     serializer_class = HouseholdOwnerSerializer
 
     def get_serializer_context(self):

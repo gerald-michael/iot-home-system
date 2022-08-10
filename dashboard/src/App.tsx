@@ -20,6 +20,10 @@ import {
 import RegisterForm from './pages/users/RegisterForm';
 import UserEdit from './pages/users/UserEdit';
 import UserHistory from './pages/users/UserHistory';
+import HomeCreateLayout from './layouts/HomeCreateLayout';
+import Homes from './pages/household/list/Homes';
+import HomeCreate from './pages/household/create/Create';
+
 // ----------------------------------------------------------------------
 
 export default function App() {
@@ -39,7 +43,7 @@ export default function App() {
         <Routes>
           {auth.token ? (
             <>
-              <Route index element={<Navigate to="/dashboard" replace />} />
+              <Route index element={<Navigate to="/home" replace />} />
               <Route path="profile/" element={<Profile />} />
               <Route path="/404" element={<NotFound />} />
               {auth.password_change_required ?
@@ -48,18 +52,22 @@ export default function App() {
                 </>
                 :
                 <>
-                  <Route path="dashboard/" element={<DashboardLayout />}>
-                    <Route index element={<DashboardApp />} />
-                    <Route path="profile/" element={<Profile />} />
-                    <Route path="users">
-                      <Route path="all/" element={<Users />} />
-                      <Route path="register/" element={<RegisterForm />} />
-                      <Route path=":userid/">
-                        <Route path="edit/" element={<UserEdit />} />
-                        <Route path="history/" element={<UserHistory />} />
+                  <Route path="home/" element={<HomeCreateLayout />}>
+                    <Route path='' element={<Homes />} />
+                    <Route path='create/' element={<HomeCreate />} />
+                    <Route path="dashboard/" element={<DashboardLayout />}>
+                      <Route index element={<DashboardApp />} />
+                      <Route path="profile/" element={<Profile />} />
+                      <Route path="users">
+                        <Route path="all/" element={<Users />} />
+                        <Route path="register/" element={<RegisterForm />} />
+                        <Route path=":userid/">
+                          <Route path="edit/" element={<UserEdit />} />
+                          <Route path="history/" element={<UserHistory />} />
+                        </Route>
                       </Route>
+                      <Route path="*" element={<Navigate to="/404" replace />} />
                     </Route>
-                    <Route path="*" element={<Navigate to="/404" replace />} />
                   </Route>
                 </>
               }

@@ -8,6 +8,7 @@ import * as serviceWorker from './serviceWorker';
 import reportWebVitals from './reportWebVitals';
 import AuthContextProvider from './store/context/auth'
 import { PermissionProvider } from './store/context/permissions';
+import HouseholdContextProvider from './store/context/household';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -15,13 +16,15 @@ const root = ReactDOM.createRoot(
 root.render(
   <AuthContextProvider>
     <PermissionProvider>
-      <HelmetProvider>
-        <BrowserRouter>
-          <SnackbarProvider maxSnack={5}>
-            <App />
-          </SnackbarProvider>
-        </BrowserRouter>
-      </HelmetProvider>
+      <HouseholdContextProvider>
+        <HelmetProvider>
+          <BrowserRouter>
+            <SnackbarProvider maxSnack={5}>
+              <App />
+            </SnackbarProvider>
+          </BrowserRouter>
+        </HelmetProvider>
+      </HouseholdContextProvider>
     </PermissionProvider>
   </AuthContextProvider>
 );

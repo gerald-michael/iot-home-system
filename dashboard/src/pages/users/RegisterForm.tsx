@@ -69,7 +69,7 @@ export default function RegisterForm() {
     }
   }, [auth])
   return (
-    <RootStyle title="Register | IOT S&S">
+    <RootStyle title="Register | HSSIOT">
       <Container sx={{ maxWidth: '70vw' }}>
         <FormikProvider value={formik}>
           <Form autoComplete="off" noValidate onSubmit={handleSubmit}>

@@ -1,9 +1,11 @@
+import { Link as RouterLink } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
-import { Card, Stack, Container, Typography, Grid } from '@mui/material';
+import { Card, Stack, Link, Container, Typography, Grid } from '@mui/material';
 // components
 import Page from '../../../components/Page';
-import LoginForm from './LoginForm';
+import CreateForm from './CreateForm';
+import Logo from '../../../components/Logo';
 
 // ----------------------------------------------------------------------
 
@@ -26,34 +28,53 @@ const ContentStyle = styled('div')(({ theme }) => ({
   maxWidth: 480,
   margin: 'auto',
   display: 'flex',
-  minHeight: '100vh',
+  maxHeight: '100vh',
   flexDirection: 'column',
   justifyContent: 'center',
   padding: theme.spacing(12, 0)
 }));
+
 // ----------------------------------------------------------------------
 
-export default function Login() {
+export default function Create() {
   return (
-    <RootStyle title="Login | HSSIOT">
+    <RootStyle title="Create Household | HSSIOT">
+      <Logo sx={{
+        position: 'absolute',
+        left: 22,
+        top: 30,
+        zIndex:1
+      }} />
       <Grid container spacing={2}>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={6}>
           <SectionStyle sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <img src="/static/authentication.svg" alt="login" />
+            <img src="/static/home_settings.svg" alt="household create" />
           </SectionStyle>
         </Grid>
 
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={6}>
 
           <Container maxWidth="sm">
             <ContentStyle>
               <Stack sx={{ mb: 5 }}>
                 <Typography variant="h4" gutterBottom>
-                  Sign in
+                  Create Household
                 </Typography>
-                <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
+                <Typography sx={{ color: 'text.secondary' }}>Enter your household details below.</Typography>
               </Stack>
-              <LoginForm />
+              <CreateForm />
+              <Typography
+                variant="subtitle2"
+                sx={{
+                  mt: 3,
+                  textAlign: 'center',
+                }}
+              >
+                Your households?&nbsp;
+                <Link underline="hover" to="../" component={RouterLink}>
+                  Households
+                </Link>
+              </Typography>
             </ContentStyle>
           </Container>
         </Grid>

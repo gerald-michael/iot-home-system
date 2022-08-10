@@ -1,7 +1,8 @@
-from django.urls import path
 from rest_framework import routers
+from devices.api.views import (
+    DeviceReadingViewset,
+)
 
 router = routers.DefaultRouter()
-# router.register(r'templates', MessageViewset, basename="device")
-# router.register(r'category', CategoryViewset, basename="messages_category")
+router.register(r"", DeviceReadingViewset, basename="device_reading")
 urlpatterns = router.urls
