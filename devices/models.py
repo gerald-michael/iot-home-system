@@ -14,12 +14,16 @@ class DeviceReading(
 
 
 class GasSensorReading(DeviceReading):
-    value = models.IntegerField()
+    value = models.DecimalField(
+        max_digits=22, decimal_places=16, null=True, blank=True
+    )
 
 
 class ProximitySensorReading(DeviceReading):
     image = models.ImageField()
-    distance = models.IntegerField()
+    distance = models.DecimalField(
+        max_digits=22, decimal_places=16, null=True, blank=True
+    )
 
 
 class TouchSensorReading(DeviceReading):
