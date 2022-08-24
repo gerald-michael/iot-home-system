@@ -20,7 +20,7 @@ export default function DashboardApp() {
           <Typography variant="h4">Hi, Welcome back</Typography>
         </Box>
         <Grid container spacing={3}>
-          <Can permissions={"can_view_sms"}>
+          {/* <Can permissions={"can_view_sms"}> */}
             <Grid item xs={12} sm={6} md={3}>
               <AppTotalSmsCount />
             </Grid>
@@ -40,7 +40,7 @@ export default function DashboardApp() {
             <Grid item xs={12}>
               <SmsDeliveryChart />
             </Grid>
-          </Can>
+          {/* </Can> */}
         </Grid>
       </Container>
     </Page>

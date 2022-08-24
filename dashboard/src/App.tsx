@@ -58,7 +58,7 @@ export default function App() {
                   <Route path="/household" element={<HomeCreateLayout />}>
                     <Route path='' element={<Homes />} />
                     <Route path='create/' element={<HomeCreate />} />
-                    <Route path=":orgslug" element={<DashboardLayout />}>
+                    <Route path=":householdslug" element={<DashboardLayout />}>
                       <Route index element={<DashboardApp />} />
                       <Route path="profile/" element={<Profile />} />
                       <Route path="users">

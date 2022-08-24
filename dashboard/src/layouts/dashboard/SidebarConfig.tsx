@@ -31,12 +31,6 @@ const sidebarConfig = [
     ]
   },
   {
-    title: 'statistics',
-    path: '/statistics',
-    // permission: 'can_view_sms',
-    icon: getIcon('icomoon-free:stats-dots')
-  },
-  {
     title: 'users',
     // permission: ['view_user', 'add_user'],
     icon: getIcon('fa-solid:users'),

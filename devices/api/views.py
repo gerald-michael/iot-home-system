@@ -1,5 +1,10 @@
 from rest_framework import viewsets, filters, permissions
-from devices.models import DeviceReading
+from devices.models import (
+    DeviceReading,
+    GasSensorReading,
+    ProximitySensorReading,
+    TouchSensorReading
+)
 from devices.api.serializers import (
     DeviceReadingPolymorphicSerializer,
 )
@@ -13,7 +18,7 @@ class DeviceReadingViewset(viewsets.ModelViewSet):
     permission_classes = [HouseholdUsersOnly | permissions.IsAdminUser]
     serializer_class = DeviceReadingPolymorphicSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
-    search_fields = []
+    search_fields = ["resourcetype"]
     ordering = ["date_created"]
     ordering_fields = [
         "date_created",
@@ -26,5 +31,12 @@ class DeviceReadingViewset(viewsets.ModelViewSet):
         return context
 
     def get_queryset(self):
+        resource_type = self.request.query_params.get("resourcetype")
         household = Household.objects.get(slug=self.kwargs["slug"])
+        if resource_type == "GasSensorReading":
+            return GasSensorReading.objects.filter(household=household)
+        if resource_type == "ProximitySensorReading":
+            return ProximitySensorReading.objects.filter(household=household)
+        if resource_type == "TouchSensorReading":
+            return TouchSensorReading.objects.filter(household=household)
         return DeviceReading.objects.filter(household=household)
