@@ -165,7 +165,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 MEDIA_URL = "media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -270,3 +270,8 @@ ORGS_SLUGFIELD = "django_extensions.db.fields.AutoSlugField"
 # )
 CORS_ALLOW_ALL_ORIGINS = True
 CSRF_COOKIE_NAME = "csrftoken"
+
+# ULTRAMSG
+ULTRAMSG_INSTANCE_ID = env('ULTRA_MSG_INSTANCE_ID')
+ULTRAMSG_TOKEN = env('ULTRA_MSG_TOKEN')
+ULTRAMSG_API_URL = env('ULTRAMSG_API_URL')

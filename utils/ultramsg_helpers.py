@@ -1,7 +1,6 @@
 from django.conf import settings
 import requests
 
-
 def send_text(message, contact, refrenceId):
     url = f"{settings.ULTRAMSG_API_URL}{settings.ULTRAMSG_INSTANCE_ID}/messages/chat"
 
