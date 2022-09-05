@@ -1,4 +1,4 @@
-import os
+from django.conf import settings
 from uuid import uuid4
 from django.db import models
 from polymorphic.models import PolymorphicModel
@@ -57,16 +57,16 @@ def send_message_touch(sender, instance, created, *args, **kwargs):
 
 def send_message_proximity(sender, instance, created, *args, **kwargs):
     if created:
-        host_url = os.environ("HOST_URL")
+        host_url = settings.HOST_URL
         send_image(
             contact=instance.household.phone_number,
             image_url=f"{host_url}{instance.image.url}",
             refrenceId=uuid4,
             caption="Image recievied from touch sensor",
         )
-        account_sid = os.environ["ACCOUNT_SID"]
-        auth_token = os.environ["ACCOUNT_TOKEN"]
-        account_number = os.environ["TWILIO_PHONE_NUMBER"]
+        account_sid = settings.ACCOUNT_SID
+        auth_token = settings.ACCOUNT_TOKEN
+        account_number = settings.TWILIO_PHONE_NUMBER
         client = Client(account_sid, auth_token)
         client.messages.create(
             body="Image recievied from touch sensor",
