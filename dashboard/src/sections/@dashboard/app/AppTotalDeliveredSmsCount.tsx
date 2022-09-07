@@ -55,7 +55,7 @@ export default function AppTotalDeliveredSmsCount() {
       </IconWrapperStyle>
       {data ? (<Typography variant="h3">{fShortenNumber(data)}</Typography>) : <Typography variant="h3">0</Typography>}
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        Delivered Sms
+        High Gas Reading This Month
       </Typography>
     </RootStyle>
   );

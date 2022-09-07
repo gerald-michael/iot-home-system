@@ -19,7 +19,7 @@ class DeviceReadingViewset(viewsets.ModelViewSet):
     serializer_class = DeviceReadingPolymorphicSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ["resourcetype"]
-    ordering = ["date_created"]
+    ordering = ["-date_created"]
     ordering_fields = [
         "date_created",
     ]

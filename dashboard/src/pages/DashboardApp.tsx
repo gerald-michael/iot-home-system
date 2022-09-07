@@ -5,7 +5,7 @@ import Page from '../components/Page';
 import {
   AppTotalSmsCount,
   AppTotalDeliveredSmsCount,
-  SmsDeliveryChart,
+  GasReadingChart,
   AppTotalPendingSmsCount,
   AppTotalFailedSmsCount
 } from '../sections/@dashboard/app';
@@ -38,7 +38,7 @@ export default function DashboardApp() {
             </Grid>
 
             <Grid item xs={12}>
-              <SmsDeliveryChart />
+              <GasReadingChart />
             </Grid>
           {/* </Can> */}
         </Grid>

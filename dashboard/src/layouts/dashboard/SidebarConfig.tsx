@@ -4,7 +4,7 @@ const getIcon = (name: string) => <Iconify icon={name} width={22} height={22} />
 const sidebarConfig = [
   {
     title: 'dashboard',
-    path: '/',
+    path: '',
     // permission: 'can_view_sms',
     icon: getIcon('ci:dashboard')
   },
@@ -29,6 +29,12 @@ const sidebarConfig = [
         path: 'device/touch/',
       },
     ]
+  },
+  {
+    title: 'household',
+    path: 'household/',
+    // permission: 'can_view_sms',
+    icon: getIcon('bi:house-door-fill')
   },
   {
     title: 'users',

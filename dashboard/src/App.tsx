@@ -26,7 +26,7 @@ import HomeCreate from './pages/household/create/Create';
 import GasSensor from './pages/devices/GasSensor';
 import TouchSensor from './pages/devices/TouchSensor';
 import ProximitySensor from './pages/devices/ProximitySensor';
-
+import HouseholdProfile from './pages/household/profile/Profile'
 // ----------------------------------------------------------------------
 
 export default function App() {
@@ -61,6 +61,7 @@ export default function App() {
                     <Route path=":householdslug" element={<DashboardLayout />}>
                       <Route index element={<DashboardApp />} />
                       <Route path="profile/" element={<Profile />} />
+                      <Route path="household/" element={<HouseholdProfile />} />
                       <Route path="users">
                         <Route path="all/" element={<Users />} />
                         <Route path="register/" element={<RegisterForm />} />

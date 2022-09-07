@@ -37,11 +37,11 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 const token = localStorage.getItem('token')?.toString()
 const config = {
-    headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        'Authorization': 'Token ' + token
-    }
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+    'Authorization': 'Token ' + token
+  }
 }
 // ----------------------------------------------------------------------
 const fetcher = (url: string) => fetch(url, config).then(res => res.json())
@@ -55,7 +55,7 @@ export default function AppTotalFailedSmsCount() {
       </IconWrapperStyle>
       {data ? (<Typography variant="h3">{fShortenNumber(data)}</Typography>) : <Typography variant="h3">0</Typography>}
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        Failed Sms
+        High Gas Reading Today
       </Typography>
     </RootStyle>
   );

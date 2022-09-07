@@ -12,7 +12,6 @@ import Page from '../../components/Page';
 import useSWR from 'swr'
 import { HOST_URL } from '../../config/settings';
 import { useParams } from 'react-router-dom';
-import { fShortenNumber } from '../../utils/formatNumber';
 
 const token = localStorage.getItem('token')?.toString()
 const config = {

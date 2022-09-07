@@ -26,6 +26,7 @@ import { UserListHead } from '../../sections/@dashboard/user';
 //
 import Iconify from '../../components/Iconify';
 import { fNumber } from '../../utils/formatNumber';
+import { sentenceCase } from 'change-case';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
@@ -125,7 +126,7 @@ export default function GasSensor() {
                                                 role="checkbox"
                                             >
                                                 <TableCell align="left">{fNumber(row.value)}</TableCell>
-                                                <TableCell align="left">High</TableCell>
+                                                <TableCell align="left">{sentenceCase(row.status)}</TableCell>
                                                 <TableCell align="left">{new Date(Date.parse(row.date_created)).toLocaleString()}</TableCell>
                                             </TableRow>)
                                     })}
