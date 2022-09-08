@@ -30,12 +30,12 @@ const sidebarConfig = [
       },
     ]
   },
-  {
-    title: 'household',
-    path: 'household/',
-    // permission: 'can_view_sms',
-    icon: getIcon('bi:house-door-fill')
-  },
+  // {
+  //   title: 'household',
+  //   path: 'household/',
+  //   // permission: 'can_view_sms',
+  //   icon: getIcon('bi:house-door-fill')
+  // },
   {
     title: 'users',
     // permission: ['view_user', 'add_user'],

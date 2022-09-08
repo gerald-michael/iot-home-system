@@ -21,7 +21,7 @@ export default function DashboardApp() {
         </Box>
         <Grid container spacing={3}>
           {/* <Can permissions={"can_view_sms"}> */}
-            <Grid item xs={12} sm={6} md={3}>
+            {/* <Grid item xs={12} sm={6} md={3}>
               <AppTotalSmsCount />
             </Grid>
 
@@ -35,7 +35,7 @@ export default function DashboardApp() {
 
             <Grid item xs={12} sm={6} md={3}>
               <AppTotalFailedSmsCount />
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={12}>
               <GasReadingChart />
